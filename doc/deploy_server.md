@@ -1,11 +1,13 @@
-# Introduction
+# Intro
 
-[uWSGI](https://uwsgi-docs.readthedocs.io/)
+The tool can run **faster** with multi-thread while deploy the it on uwsgi server.
+
+It's simple if you want to push it to cloud whenever.
 
 You can run it with `python ./main.py` or `uwsgi --ini uwsgi.ini`
 
 
-# Requirements
+# Required
 
 ```
 pip install uwsgi
@@ -19,7 +21,7 @@ pip install uwsgi
 # Set the IP and Port.
 http = 0.0.0.0:8092
 
-# **Importance**: Need rewrite the value of chdir key
+# **Importance**: Need rewrite the value of chdir key. The right path 
 chdir = /root/SUSTechPOINTS
 
 module = main:application

@@ -1,6 +1,6 @@
 
 import {rotation_matrix_to_euler_angle,euler_angle_to_rotate_matrix, matmul, transpose} from "./util.js"
-//import {render_2d_image, update_image_box_projection} from "./image.js"
+import "./image.js"
 
 function Calib(data, editor){
     this.data = data;

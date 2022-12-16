@@ -230,16 +230,7 @@
 											<div class="menu-item-icon"></div>
 											<div class="menu-item-text">Copy/Select as Ref</div>
 										</div>
-										<div class="menu-item menu-seperator"></div>
-										<div class="menu-item" id="cm-change-id-to-ref">
-											<div class="menu-item-icon"></div>
-											<div class="menu-item-text">Change ID to Ref</div>
-										</div>
-										<div class="menu-item" id="cm-change-id-to-ref-in-scene">
-											<div class="menu-item-icon"></div>
-											<div class="menu-item-text">Change ID to Ref in all frames</div>
-										</div>
-										<div class="menu-item menu-seperator"></div>
+										
 										<div class="menu-item" id="cm-follow-ref">
 											<div class="menu-item-icon"></div>
 											<div class="menu-item-text">Follow Ref</div>
@@ -453,11 +444,6 @@
 							<div class="menu-item-text">Stat</div>				
 						</div>
 
-						<div class="menu-item" id="cm-check-scene">
-							<div class="menu-item-icon"></div>
-							<div class="menu-item-text">Check</div>				
-						</div>
-
 					</div>
 				
 					<div id="object-context-menu">
@@ -604,19 +590,8 @@
 									<div class="menu-item-text">Rotation</div></div>
 								<div class="menu-item" id="cm-fit-moving-direction">
 									<div class="menu-item-text">Moving direction</div></div>
-								<div class="menu-item menu-seperator"></div>
-								<div class="menu-item" id="cm-fit-top">
-									<div class="menu-item-text">Top</div></div>	
 								<div class="menu-item" id="cm-fit-bottom">
-									<div class="menu-item-text">Bottom</div></div>
-								<div class="menu-item" id="cm-fit-left">
-									<div class="menu-item-text">Left</div></div>
-								<div class="menu-item" id="cm-fit-right">
-									<div class="menu-item-text">Right</div></div>
-								<div class="menu-item" id="cm-fit-front">
-									<div class="menu-item-text">Front</div></div>
-								<div class="menu-item" id="cm-fit-rear">
-									<div class="menu-item-text">Rear</div></div>
+									<div class="menu-item-text">Bottom</div></div>								
 							</div>
 						</div>
 
@@ -681,12 +656,6 @@
 							<div class="menu-item-icon">							
 							</div>
 							<div class="menu-item-text"><u>T</u>rajectory</div>
-						</div>
-
-						<div class="menu-item" id="cm-check">
-							<div class="menu-item-icon">							
-							</div>
-							<div class="menu-item-text">Check</div>
 						</div>
 
 					</div>
@@ -1038,7 +1007,7 @@
 				<div id="log-wrapper" class="popup-window-wrapper" tabindex='-1'>
 					<div id="view">
 						<div id="header">
-							<span id="title">Output</span>
+							<span id="title">Log</span>
 							<div id="buttons">
 								<!-- <div id="btn-restore" class="ui-button"  title="restore">
 									<svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="svg-button"><g>
@@ -1064,13 +1033,7 @@
 								</div>
 							</div>
 						</div>
-						<div id="tabs">
-							<div id = "tab-log" class="tab-button tab-selected">Logs</div>
-							<div id = "tab-error" class="tab-button">Errors</div>
-						</div>
-						<div id="content-logs">
-						</div>
-						<div id="content-errors">
+						<div id="content">
 						</div>
 					</div>
 				</div>
@@ -1083,10 +1046,6 @@
 		<template id="box-editor-ui-template"><div id="sub-views">
 				<div class="box-info non-selectable" id="box-info"></div>
 				<div class="view-manipulator"  id="z-view-manipulator"  tabindex="-1">
-					<!-- <div class="subview-obj-size">
-						<div class="obj-vertical-size">2.33</div>
-						<div class="obj-horizontal-size"></div>
-					</div> -->
 					<svg class="subview-svg" id = "view-svg">
 						<circle cx="50%" cy="50%" r="5" class="origin-point-indicator" id="origin-point-indicator"></circle>
 						<rect x="70" y="50" width="20" height="140" fill="#00000000" class="line-handle ew-handle" id="line-left-handle"/>
@@ -1101,16 +1060,16 @@
 						<rect x="90" y="190" width="40" height="20" fill="#00000000" class="line-handle ns-handle" id="line-bottom-handle"/>
 						<line x1="80" y1="200" x2="140" y2="200" class = "svg-line" id="line-bottom" />
 
-						<rect x="110" y="120" width="20" height="70" fill="#00000000" class="line-handle  ew-handle" id="line-direction-handle"/>
+						<rect x="110" y="120" width="20" height="70", fill="#00000000" class="line-handle  ew-handle" id="line-direction-handle"/>
 						<line x1="110" y1="120" x2="110" y2="40" class = "svg-line" id="line-direction" />
 
 						<!-- corners -->
-						<rect x="60" y="40" width="20" height="20" fill="#00000000" class="line-handle  nw-handle" id="top-left-handle"/>
-						<rect x="110" y="120" width="20" height="20" fill="#00000000" class="line-handle  ne-handle" id="top-right-handle"/>
-						<rect x="110" y="120" width="20" height="20" fill="#00000000" class="line-handle  sw-handle" id="bottom-left-handle"/>
-						<rect x="110" y="120" width="20" height="20" fill="#00000000" class="line-handle  se-handle" id="bottom-right-handle"/>
+						<rect x="60" y="40" width="20" height="20", fill="#00000000" class="line-handle  nw-handle" id="top-left-handle"/>
+						<rect x="110" y="120" width="20" height="20", fill="#00000000" class="line-handle  ne-handle" id="top-right-handle"/>
+						<rect x="110" y="120" width="20" height="20", fill="#00000000" class="line-handle  sw-handle" id="bottom-left-handle"/>
+						<rect x="110" y="120" width="20" height="20", fill="#00000000" class="line-handle  se-handle" id="bottom-right-handle"/>
 
-						<rect x="100" y="110" width="20" height="20" fill="#00000000" class="line-handle grab-handle" id="move-handle"/>
+						<rect x="100" y="110" width="20" height="20", fill="#00000000" class="line-handle grab-handle" id="move-handle"/>
 					</svg>
 					<div class="v-buttons-wrapper" id="v-buttons">
 						<div id="v-fit-position" class="ui-button"  title="Fit position">
@@ -1181,14 +1140,14 @@
 						<rect x="90" y="190" width="40" height="20" fill="#00000000" class="line-handle ns-handle" id="line-bottom-handle"/>
 						<line x1="80" y1="200" x2="140" y2="200" class = "svg-line" id="line-bottom" />
 
-						<rect x="110" y="120" width="20" height="70" fill="#00000000" class="line-handle  ew-handle" id="line-direction-handle"/>
+						<rect x="110" y="120" width="20" height="70", fill="#00000000" class="line-handle  ew-handle" id="line-direction-handle"/>
 						<line x1="110" y1="120" x2="110" y2="40" class = "svg-line" id="line-direction" />
 
 						<!-- corners -->
-						<rect x="60" y="40" width="20" height="20" fill="#00000000" class="line-handle  nw-handle"   id="top-left-handle"/>
-						<rect x="110" y="120" width="20" height="20" fill="#00000000" class="line-handle  ne-handle" id="top-right-handle"/>
-						<rect x="110" y="120" width="20" height="20" fill="#00000000" class="line-handle  sw-handle" id="bottom-left-handle"/>
-						<rect x="110" y="120" width="20" height="20" fill="#00000000" class="line-handle  se-handle" id="bottom-right-handle"/>
+						<rect x="60" y="40" width="20" height="20", fill="#00000000" class="line-handle  nw-handle"   id="top-left-handle"/>
+						<rect x="110" y="120" width="20" height="20", fill="#00000000" class="line-handle  ne-handle" id="top-right-handle"/>
+						<rect x="110" y="120" width="20" height="20", fill="#00000000" class="line-handle  sw-handle" id="bottom-left-handle"/>
+						<rect x="110" y="120" width="20" height="20", fill="#00000000" class="line-handle  se-handle" id="bottom-right-handle"/>
 
 						<rect x="100" y="110" width="20" height="20", fill="#00000000" class="line-handle  grab-handle" id="move-handle"/>
 
@@ -1224,16 +1183,16 @@
 						<rect x="90" y="190" width="40" height="20" fill="#00000000" class="line-handle ns-handle" id="line-bottom-handle"/>
 						<line x1="80" y1="200" x2="140" y2="200" class = "svg-line" id="line-bottom" />
 
-						<rect x="110" y="120" width="20" height="70" fill="#00000000" class="line-handle  ew-handle" id="line-direction-handle"/>
+						<rect x="110" y="120" width="20" height="70", fill="#00000000" class="line-handle  ew-handle" id="line-direction-handle"/>
 						<line x1="110" y1="120" x2="110" y2="40" class = "svg-line" id="line-direction" />
 
 						<!-- corners -->				
-						<rect x="60" y="40" width="20" height="20" fill="#00000000" class="line-handle  nw-handle"   id="top-left-handle"/>
-						<rect x="110" y="120" width="20" height="20" fill="#00000000" class="line-handle  ne-handle" id="top-right-handle"/>
-						<rect x="110" y="120" width="20" height="20" fill="#00000000" class="line-handle  sw-handle" id="bottom-left-handle"/>
-						<rect x="110" y="120" width="20" height="20" fill="#00000000" class="line-handle  se-handle" id="bottom-right-handle"/>
+						<rect x="60" y="40" width="20" height="20", fill="#00000000" class="line-handle  nw-handle"   id="top-left-handle"/>
+						<rect x="110" y="120" width="20" height="20", fill="#00000000" class="line-handle  ne-handle" id="top-right-handle"/>
+						<rect x="110" y="120" width="20" height="20", fill="#00000000" class="line-handle  sw-handle" id="bottom-left-handle"/>
+						<rect x="110" y="120" width="20" height="20", fill="#00000000" class="line-handle  se-handle" id="bottom-right-handle"/>
 
-						<rect x="100" y="110" width="20" height="20" fill="#00000000" class="line-handle  grab-handle" id="move-handle"/>
+						<rect x="100" y="110" width="20" height="20", fill="#00000000" class="line-handle  grab-handle" id="move-handle"/>
 
 					</svg>
 					<div class="v-buttons-wrapper" id="v-buttons">

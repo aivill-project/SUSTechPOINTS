@@ -48,20 +48,15 @@ class ObjectIdManager
         document.getElementById("obj-ids-of-scene").innerHTML = objIdsOptions;
     }
 
-    sortObjIdList()
-    {
-        this.objectList = this.objectList.sort(function(x, y){
-            return parseInt(x.id) - parseInt(y.id);
-        });
-    }
-
     // called when 1) new object 2) category/id modified
     addObject(obj)
     {
         if (! this.objectList.find(x=>x.id == obj.id && x.category == obj.category))
         {
             this.objectList.push(obj);      
-            this.sortObjIdList();
+            this.objectList = this.objectList.sort(function(x, y){
+                return x.id - y.id;
+            });      
 
             this.setObjdIdListOptions();
 
@@ -85,8 +80,11 @@ class ObjectIdManager
             if (this.status == 200) {
                 var ret = JSON.parse(this.responseText);
 
+                ret = ret.sort(function(x, y){
+                                    return x.id - y.id;
+                                });
+                                    
                 self.objectList = ret;
-                self.sortObjIdList();
                 self.maxId = Math.max(...ret.map(function(x){return x.id;}));
                 if (self.maxId < 0) // this is -infinity if there is no ids.
                     self.maxId = 0;
@@ -103,11 +101,6 @@ class ObjectIdManager
         xhr.send();
     }
     
-
-    getObjById(id)
-    {
-        return this.objectList.find(x=>x.id == id);
-    }
 }
 
 

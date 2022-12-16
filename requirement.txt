@@ -1,5 +1,6 @@
-tensorflow>=2.1
+tensorflow
 jinja2
 cherrypy
 filterpy
 cheroot != 8.4.4
+MarkupSafe==2.0.1

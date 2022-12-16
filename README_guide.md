@@ -8,7 +8,6 @@
 
 [操作说明](./README_cn.md)
 
-[快捷键](./doc/shortcuts_cn.md)
 
 # 什么是3D目标检测/追踪
 
@@ -34,7 +33,7 @@
 
 
 ### 类别及属性
-所有可移动的物体都要标注.
+所有可移动的物体都要标注，如果有新的类别，请联系我
 
 部分类别有一些属性，需要根据实际情况选择或者填写
 比如人的属性， 伞，婴儿车，行李，坐着，蹲着..
@@ -74,10 +73,9 @@ rider的属性： 伞，载客1个，载客2个..
 |Tram|电车||
 |Animal|动物||
 |ForkLift|叉车||![Forklift](./doc/objtype/forklift.jpg)|
-|Trimotorcycle|电动三轮车||![Trimotocycle](./doc/objtype/Trimotorcycle.jpeg)|
-|FreightTricycle|人力三轮车||![freight tricycle](./doc/objtype/freight-tricycle.png)|
+|Trimotorcycle|三轮车||![Trimotocycle](./doc/objtype/Trimotorcycle.jpeg)|
 |Crane|吊车||![crane](./doc/objtype/crane.jpeg)|
-|Excavator|挖掘机||![excavator](./doc/objtype/excavator.png)|
+|Eexcavator|挖掘机||![excavator](./doc/objtype/excavator.png)|
 |Roadroller|压路机||![road roller](./doc/objtype/RoadRoller.jpeg)|
 |Bulldozer|推土机||![bull dozer](./doc/objtype/Bulldozer.jpeg)|
 

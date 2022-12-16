@@ -8,7 +8,7 @@
  *
  */
 
- import {
+import {
 	DefaultLoadingManager,
 	FileLoader,	
 	LoaderUtils,	
@@ -21,45 +21,6 @@ var PCDLoader = function ( manager ) {
 	this.littleEndian = true;
 
 };
-
-function decompressLZF(inData, outLength) {
-	var inLength = inData.length
-	var outData = new Uint8Array(outLength)
-	var inPtr = 0
-	var outPtr = 0
-	var ctrl
-	var len
-	var ref
-	do {
-	  ctrl = inData[inPtr++]
-	  if (ctrl < 1 << 5) {
-		ctrl++
-		if (outPtr + ctrl > outLength) throw new Error('Output buffer is not large enough')
-		if (inPtr + ctrl > inLength) throw new Error('Invalid compressed data')
-		do {
-		  outData[outPtr++] = inData[inPtr++]
-		} while (--ctrl)
-	  } else {
-		len = ctrl >> 5
-		ref = outPtr - ((ctrl & 0x1f) << 8) - 1
-		if (inPtr >= inLength) throw new Error('Invalid compressed data')
-		if (len === 7) {
-		  len += inData[inPtr++]
-		  if (inPtr >= inLength) throw new Error('Invalid compressed data')
-		}
-
-		ref -= inData[inPtr++]
-		if (outPtr + len + 2 > outLength) throw new Error('Output buffer is not large enough')
-		if (ref < 0) throw new Error('Invalid compressed data')
-		if (ref >= outPtr) throw new Error('Invalid compressed data')
-		do {
-		  outData[outPtr++] = outData[ref++]
-		} while (--len + 2)
-	  }
-	} while (inPtr < inLength)
-
-	return outData
-  }
 
 
 PCDLoader.prototype = {
@@ -335,16 +296,6 @@ PCDLoader.prototype = {
 
 				}
 
-				if ( offset.vx !== undefined ) {
-					var vx,vy;
-					vx = parseFloat( line[ offset.vx ] );
-					vy = parseFloat( line[ offset.vy ] );
-
-					velocity.push(vx);
-					velocity.push(vy);
-					velocity.push(0);
-				}
-
 
 				if (offset.intensity !== undefined) {
 					intensity.push( parseInt( line[ offset.intensity ] ));
@@ -358,91 +309,12 @@ PCDLoader.prototype = {
 
 		if ( PCDheader.data === 'binary_compressed' ) {
 
-			var sizes = new Uint32Array( data.slice( PCDheader.headerLen, PCDheader.headerLen + 8 ) );
-			var compressedSize = sizes[ 0 ];
-			var decompressedSize = sizes[ 1 ];
-			var decompressed = decompressLZF( new Uint8Array( data, PCDheader.headerLen + 8, compressedSize ), decompressedSize );
-			var dataview = new DataView( decompressed.buffer );
-			
-			var offset = PCDheader.offset;
-			var intensity_index = PCDheader.fields.findIndex(n=>n==="intensity");
-			var intensity_type = "F";
-			var intensity_size = 4;
-
-			if (intensity_index >= 0){
-				intensity_type = PCDheader.type[intensity_index];
-				intensity_size = PCDheader.size[intensity_index];
-			}
-
-			let size = {};
-			
-			PCDheader.fields.forEach((n,i)=>size[n]=PCDheader.size[i])
-
-
-			for ( var i = 0; i < PCDheader.points; i ++ ) {
-			
-				if ( offset.x !== undefined ) {
-				
-					if (size.x==8)
-					{
-						position.push( dataview.getFloat64( ( PCDheader.points * offset.x ) + size.x * i, this.littleEndian ) );
-						position.push( dataview.getFloat64( ( PCDheader.points * offset.y ) + size.y * i, this.littleEndian ) );
-						position.push( dataview.getFloat64( ( PCDheader.points * offset.z ) + size.z * i, this.littleEndian ) );
-					}
-					else
-					{
-						position.push( dataview.getFloat32( ( PCDheader.points * offset.x ) + size.x * i, this.littleEndian ) );
-						position.push( dataview.getFloat32( ( PCDheader.points * offset.y ) + size.y * i, this.littleEndian ) );
-						position.push( dataview.getFloat32( ( PCDheader.points * offset.z ) + size.z * i, this.littleEndian ) );
-					}
-					
-				}
-
-				if ( offset.vx !== undefined ) {
-				
-					if (size.vx==8)
-					{
-						velocity.push( dataview.getFloat64( ( PCDheader.points * offset.vx ) + size.vx * i, this.littleEndian ) );
-						velocity.push( dataview.getFloat64( ( PCDheader.points * offset.vy ) + size.vy * i, this.littleEndian ) );
-						velocity.push( 0 );
-					}
-					else
-					{
-						velocity.push( dataview.getFloat32( ( PCDheader.points * offset.vx ) + size.vx * i, this.littleEndian ) );
-						velocity.push( dataview.getFloat32( ( PCDheader.points * offset.vy ) + size.vy * i, this.littleEndian ) );
-						velocity.push( 0 );
-					}
-					
-				}
-				
-				// if ( offset.rgb !== undefined ) {
-				
-				// 	color.push( dataview.getUint8( ( PCDheader.points * ( offset.rgb + 2 ) ) + PCDheader.size[ 3 ] * i ) / 255.0 );
-				// 	color.push( dataview.getUint8( ( PCDheader.points * ( offset.rgb + 1 ) ) + PCDheader.size[ 3 ] * i ) / 255.0 );
-				// 	color.push( dataview.getUint8( ( PCDheader.points * ( offset.rgb + 0 ) ) + PCDheader.size[ 3 ] * i ) / 255.0 );
-				
-				// }
-				
-				// if ( offset.normal_x !== undefined ) {
-				
-				// 	normal.push( dataview.getFloat32( ( PCDheader.points * offset.normal_x ) + PCDheader.size[ 4 ] * i, this.littleEndian ) );
-				// 	normal.push( dataview.getFloat32( ( PCDheader.points * offset.normal_y ) + PCDheader.size[ 5 ] * i, this.littleEndian ) );
-				// 	normal.push( dataview.getFloat32( ( PCDheader.points * offset.normal_z ) + PCDheader.size[ 6 ] * i, this.littleEndian ) );
-				
-				// }
-			
-				if (offset.intensity !== undefined) {
-					if (intensity_type == "U" && intensity_size == 1){
-						intensity.push( dataview.getUint8(PCDheader.points * offset.intensity + size.intensity*i));
-					}
-					else if (intensity_type == "F" && intensity_size == 4){
-						intensity.push( dataview.getFloat32(PCDheader.points * offset.intensity + size.intensity*i, this.littleEndian));
-					}
-				}
-			}
+			console.error( 'THREE.PCDLoader: binary_compressed files are not supported' );
+			return;
 
 		}
-		else if ( PCDheader.data === 'binary' ) {
+
+		if ( PCDheader.data === 'binary' ) {
 
 			var dataview = new DataView( data, PCDheader.headerLen );
 			var offset = PCDheader.offset;
@@ -456,24 +328,13 @@ PCDLoader.prototype = {
 				intensity_size = PCDheader.size[intensity_index];
 			}
 
-			let x_index = PCDheader.fields.findIndex(n=>n==="x");
-			let x_size = 4;
-			let x_type = 'F';
-			if (x_index >= 0){
-				x_type = PCDheader.type[x_index];
-				x_size = PCDheader.size[x_index];
-			}
-
 
 			for ( var i = 0, row = 0; i < PCDheader.points; i ++, row += PCDheader.rowSize ) {
 
 				if ( offset.x !== undefined ) {
-
-					let getFloat =  (x_size==8)? dataview.getFloat64.bind(dataview) : dataview.getFloat32.bind(dataview);
-					
-					let x = getFloat( row + offset.x, this.littleEndian );
-					let y = getFloat( row + offset.y, this.littleEndian );
-					let z = getFloat( row + offset.z, this.littleEndian );
+					let x = dataview.getFloat32( row + offset.x, this.littleEndian );
+					let y = dataview.getFloat32( row + offset.y, this.littleEndian );
+					let z = dataview.getFloat32( row + offset.z, this.littleEndian );
 
 					if (filterPoint(x,y,z)){
 						continue;
