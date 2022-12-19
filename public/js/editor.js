@@ -294,6 +294,7 @@ function Editor(editorUi, wrapperUi, editorCfg, data, name = 'editor') {
       // body.push(x1, y1, h, x2, y2, h) //3
       // body.push(0.6 * x1, 0.6 * y1, h, 0.6 * x2, 0.6 * y2, h) // 1
       // body.push(0.9 * x1, 0.9 * y1, h, 0.9 * x2, 0.9 * y2, h) // 2
+      // body.push(0.95 * x1, 0.95 * y1,h, 0.95 * x2, 0.95 * y2,h);
       body.push(x1,y1,h,x2,y2,h);
       // body.push(0.6*x1,0.6*y1,h,0.6*x2,0.6*y2,h);
       // body.push(2.0*x1,2.0*y1,h,2.0*x2,2.0*y2,h);
@@ -307,7 +308,7 @@ function Editor(editorUi, wrapperUi, editorCfg, data, name = 'editor') {
 
     box.scale.x = 50
     box.scale.y = 50
-    box.scale.z = -10
+    box.scale.z =20
     box.position.x = 0
     box.position.y = 0
     box.position.z = 0

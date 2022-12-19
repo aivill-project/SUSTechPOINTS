@@ -13,6 +13,11 @@ import os
 import sys
 import scene_reader
 
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--port", type=int, default=8501, help="port to listen")
+args = parser.parse_args()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
@@ -288,6 +293,7 @@ class Root(object):
 
 
 if __name__ == "__main__":
+    cherrypy.config.update({"server.socket_port": args.port})
     cherrypy.quickstart(Root(), "/", config="server.conf")
 else:
     application = cherrypy.Application(Root(), "/", config="server.conf")
