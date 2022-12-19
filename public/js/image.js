@@ -581,10 +581,12 @@ class ImageContext extends MovableView {
     })
 
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    svg.setAttribute('id', 'svg-box-local-' + box.obj_local_id)
+    // svg.setAttribute('id', 'svg-box-local-' + box.obj_local_id)
+    svg.setAttribute('id', 'svg-box-local-' + box.obj_local_id + '-' + box.obj_track_id)
 
     if (selected) {
-      svg.setAttribute('class', box.obj_type + ' box-svg box-svg-selected')
+      // svg.setAttribute('class', box.obj_type + ' box-svg box-svg-selected')
+      svg.setAttribute('class', box.obj_type )
     } else {
       if (box.world.data.cfg.color_obj == 'id') {
         svg.setAttribute('class', 'color-' + (box.obj_track_id % 33))
@@ -666,7 +668,8 @@ class ImageContext extends MovableView {
     onBoxSelected: (box_obj_local_id, obj_type) => {
       var b = this.ui.querySelector('#svg-box-local-' + box_obj_local_id)
       if (b) {
-        b.setAttribute('class', 'box-svg-selected')
+        // b.setAttribute('class', 'box-svg-selected')
+        b.setAttribute('class', obj_type)
       }
     },
 

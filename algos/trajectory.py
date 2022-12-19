@@ -210,7 +210,7 @@ def kalmanfilter_pred(annotations):
       pred_num += 1
 
     return pred_num
-    
+
 
 def predict(scene_id, obj_id, current_frame, predict_frame):
     print("interpolate", scene_id, obj_id)

@@ -87,7 +87,8 @@ function save2DAnnotation() {
     var objects = []
     for (let i = 0; i < cuboids.length; i++) {
       var cls = cuboids[i].getAttribute('class').split(' ')[0]
-      var nid = cuboids[i].getAttribute('id').split('-')[3]
+      var nid = cuboids[i].getAttribute('id').split('-')[4]
+      // console.log(cuboids[i], '알려줘')
       var object = {}
       object['id'] = parseInt(nid)
       object['class'] = cls
