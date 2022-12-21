@@ -123,7 +123,6 @@ function save2DAnnotation() {
       object['back'] = reorder_points([back[0], back[2], back[4], back[6]])
       objects.push(object)
     }
-    // console.log(header.innerText, img, boxes.children)
     var jsonObject = {
       filename: img.getAttribute('xlink:href').split('/').pop(),
       width: parseInt(img.getAttribute('width')),
@@ -154,6 +153,7 @@ function save2DAnnotation() {
       location: header.innerText,
       annotation: jsonObject,
     })
+    logger.log(`saved 2d label: < scean: ${fi.scene}, frame: ${fi.frame}, camera: ${header.innerText} >`)
     xhr.send(b)
   }
 }
